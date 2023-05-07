@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>実験●</title>
+    <style>
+        #topic1 {
+            position: absolute;
+            top: 8%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3.2rem;
+            color: black;
+            text-align: center;
+            z-index: 10;
+            white-space: nowrap;
+            z-index: 0;
+        }
+
+        #topic2 {
+            position: absolute;
+            top: 17%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2.6rem;
+            color: black;
+            text-align: center;
+            z-index: 10;
+            white-space: nowrap;
+            z-index: 0;
+            /* 改行を無視するnowrapを設定 */
+        }
+
+        .timer-container {
+            text-align: center;
+        }
+
+        #timer {
+            position: absolute;
+            top: 19%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3.5rem;
+        }
+
+        #startTimer {
+            position: absolute;
+            left: 50%;
+        }
+
+        #timer {
+            font-size: 80px;
+            margin-top: 50px;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="topic1">
+        <font color="#c7000b"><b>発話衝突を肯定的に捉えて</b></font>議論を行ってください
+    </div>
+    <div id="topic2">議題：●日本を象徴する観光地を一つに決めてください</div>
+
+    <button id="startTimer">Start Timer</button>
+    <div id="timer">5:00</div>
+
+
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
+    <script>
+        let socket = io();
+        document.querySelector('#startTimer').addEventListener('click', () => {
+            socket.emit('startTimer');
+        });
+
+        socket.on('updateTimer', (currentTime) => {
+            document.querySelector('#timer').textContent = currentTime;
+        });
+
+
+    </script>
+</body>
+
+</html>
