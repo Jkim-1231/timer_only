@@ -13,10 +13,10 @@ app.get("/", (req, res) => {
 
 io.on("connection", (socket) => {
   console.log("ユーザーが接続しました");
-  socket.on("like1" , (emoji1)=>{
-    console.log("絵文字："+emoji1)
-    io.emit("like1",emoji1);
-  })
+  // socket.on("like1" , (emoji1)=>{
+  //   console.log("絵文字："+emoji1)
+  //   io.emit("like1",emoji1);
+  // })
 
   socket.on('startTimer', () => {
     let time = 300;
