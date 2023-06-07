@@ -14,7 +14,7 @@
             top: 10%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 3.2rem;
+            font-size: 3.0rem;
             color: black;
             text-align: center;
             z-index: 10;
@@ -71,7 +71,8 @@
     </div>
     <div id="topic2">議題：西日本を象徴する観光地を一つに決めてください</div>
 
-    <button id="startTimer">Start Timer</button>
+    <!-- <button id="startTimer">Start Timer</button> -->
+    <div id="startTimer"></div>
     <div id="timer">5:00</div>
 
 
@@ -80,8 +81,18 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.1.2/socket.io.js"></script>
     <script>
         let socket = io();
-        document.querySelector('#startTimer').addEventListener('click', () => {
-            socket.emit('startTimer');
+        // document.querySelector('#startTimer').addEventListener('click', () => {
+        //     socket.emit('startTimer');
+        // });
+
+        // socket.on('updateTimer', (currentTime) => {
+        //     document.querySelector('#timer').textContent = currentTime;
+        // });
+
+        document.addEventListener('keydown', function(event){
+            if(event.keyCode === 50 && event.ctrlKey && event.altKey&& event.shiftKey){
+                socket.emit('startTimer');
+            }
         });
 
         socket.on('updateTimer', (currentTime) => {
