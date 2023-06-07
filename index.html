@@ -1,5 +1,3 @@
-<!-- PART2 -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,6 +7,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>実験①</title>
     <style>
+        #emoji {
+            position: absolute;
+            font-size: 650px;
+            top: 42%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            pointer-events: none;
+            animation: fade-out 3s ease-in-out forwards;
+        }
+
         #topic1 {
             position: absolute;
             top: 10%;
@@ -65,7 +74,11 @@
 </head>
 
 <!-- <body bgcolor=#cde9ff> -->
+
 <body>
+    <div id="container">
+        <div id="emoji"></div>
+    </div>
     <div id="topic1">
         <font color="#c7000b"><b>発話衝突を肯定的に捉えて</b></font>議論を行ってください
     </div>
@@ -99,6 +112,32 @@
             document.querySelector('#timer').textContent = currentTime;
         });
 
+        document.addEventListener("keydown", function (event) {
+            if (event.ctrlKey && event.altKey && event.shiftKey) {
+                var emoji = document.getElementById('emoji');
+                emoji.innerHTML = '👍';
+                emoji.style.opacity = 1;
+
+                setTimeout(function () {
+                    emoji.style.transition = 'opacity 3s';
+                    emoji.style.opacity = 0;
+                }, 2000);
+                emoji.style.transition = 'opacity 0s';
+                socket.emit("like1", emoji.innerHTML);
+            }
+        });
+        socket.on("like1", function (emoji1) {
+            console.log(emoji1);
+            var emoji = document.getElementById('emoji');
+            emoji.innerHTML = '👍';
+            emoji.style.opacity = 1;
+            setTimeout(function () {
+                emoji.style.transition = 'opacity 3s';
+                emoji.style.opacity = 0;
+            }, 2000);
+            emoji.style.transition = 'opacity 0s';
+            // socket.emit("like1", emoji.innerHTML);
+        });
 
     </script>
 </body>
